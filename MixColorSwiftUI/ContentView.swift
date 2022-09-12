@@ -18,7 +18,7 @@ struct ContentView: View {
                 .ignoresSafeArea()
             VStack {
                 RoundedRectangle(cornerRadius: 20)
-                    .frame(width: 350, height: 200)
+                    .frame(maxWidth: .infinity, maxHeight: 200)
                     .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.white, lineWidth: 5))
                     .foregroundColor(
                         Color(red: stateRedSliderValue / 255,
@@ -28,9 +28,9 @@ struct ContentView: View {
                         
                     )
                     .padding(.bottom, 50)
-                ColorSliderView(value: $stateRedSliderValue, colorSlider: .red)
-                ColorSliderView(value: $stateGreenowSliderValue, colorSlider: .green)
-                ColorSliderView(value: $stateBlueSliderValue, colorSlider: .blue)
+                ColorSliderView(colorValue: $stateRedSliderValue, colorSlider: .red)
+                ColorSliderView(colorValue: $stateGreenowSliderValue, colorSlider: .green)
+                ColorSliderView(colorValue: $stateBlueSliderValue, colorSlider: .blue)
                 
                 Spacer()
             }
@@ -46,18 +46,18 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 struct ColorSliderView: View {
-    @Binding var value: Double
+    @Binding var colorValue: Double
     //@Binding var textFildValue: String
     let colorSlider: Color
     
     var body: some View {
         HStack {
-            Text("\(lround(value))")
+            Text("\(lround(colorValue))")
                 .font(.title)
                 .foregroundColor(.black)
-            Slider(value: $value, in: 0...255, step: 1)
+            Slider(value: $colorValue, in: 0...255, step: 1)
                 .accentColor(colorSlider)
-            //TextField("\(ColorSliderView)", text: $textFildValue)
         }
     }
 }
+
